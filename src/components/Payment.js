@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import { serverUrl } from "../api/apiUrl";
+import { apiUrl } from "../api/apiUrl";
 
 const Payment = ({ cart, stripePromise }) => {
   const [clientSecret, setClientSecret] = useState("");
@@ -9,7 +9,7 @@ const Payment = ({ cart, stripePromise }) => {
   // Fetch client secret for the checkout session when the app loads
   useEffect(() => {
     // Assuming you have an endpoint to create a payment intent
-    fetch(`${serverUrl}/create-payment-intent`, {
+    fetch(`${apiUrl}/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: cart }),
