@@ -4,12 +4,15 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useLocation } from "react-router-dom";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ cart }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const location = useLocation();
+  const total = location.state?.total || "0.00";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,11 +33,6 @@ const CheckoutForm = () => {
       },
     });
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
     if (error) {
       // Handle the error, e.g., show an error message to the user
       setMessage(error.message);
@@ -53,20 +51,26 @@ const CheckoutForm = () => {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isProcessing || !stripe} id="submit">
-        <span className="checkout-button">
-          {isProcessing ? (
-            <div className="spinner" id="spinner"></div>
-          ) : (
-            "Pay now"
-          )}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <>
+      <div className="checkout-summary">
+        <h2>Checkout</h2>
+        <p>Total Amount: ${total}</p>
+      </div>
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <PaymentElement id="payment-element" options={paymentElementOptions} />
+        <button disabled={isProcessing || !stripe} id="submit">
+          <span className="checkout-button">
+            {isProcessing ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              "Pay now"
+            )}
+          </span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </>
   );
 };
 

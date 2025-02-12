@@ -1,20 +1,11 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { FaMinus } from "react-icons/fa";
+import CartFooter from "./CartFooter";
 
 const Cart = ({ cart, removeFromCart, addToCart, subtractFromCart }) => {
-  const navigate = useNavigate();
-
-  // Get total price of cart
-  const getTotal = () => {
-    return cart.reduce(
-      (total, product) => total + product.price * product.quantity,
-      0
-    );
-  };
-
   return (
     <div className="cart-container">
       <h1 className="cart-header">Shopping Cart</h1>
@@ -52,7 +43,6 @@ const Cart = ({ cart, removeFromCart, addToCart, subtractFromCart }) => {
                       className="cart-button"
                       onClick={() => addToCart(product)}
                     />
-
                     <FaRegTrashAlt
                       className="cart-button"
                       onClick={() => removeFromCart(product)}
@@ -64,17 +54,7 @@ const Cart = ({ cart, removeFromCart, addToCart, subtractFromCart }) => {
           </ul>
         )}
       </div>
-      {cart.length > 0 && (
-        <div className="cart-footer">
-          <h3>Total: ${getTotal().toFixed(2)}</h3>
-          <button
-            className="add-to-cart-button"
-            onClick={() => navigate("/checkout")}
-          >
-            Proceed to Checkout
-          </button>
-        </div>
-      )}
+      {cart.length > 0 && <CartFooter cart={cart} />}
     </div>
   );
 };
