@@ -10,8 +10,6 @@ import ProductCard from "./ProductCard";
 
 const Main = ({ stripePromise, products }) => {
   const [cart, setCart] = useState([]);
-  const location = useLocation();
-  const hideCartOnRoutes = ["/checkout", "/cart"];
 
   const addToCart = (product, quantity = 1) => {
     // Create a copy of the products array
@@ -68,9 +66,7 @@ const Main = ({ stripePromise, products }) => {
 
   return (
     <div className="App">
-      <Navbar
-        cart={!hideCartOnRoutes.includes(location.pathname) ? cart : null}
-      />
+      <Navbar cart={cart} />
       <Routes>
         <Route
           path="/"
