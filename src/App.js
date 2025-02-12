@@ -24,8 +24,6 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log("stripeKey", stripeKey);
-
   const stripePromise = loadStripe(stripeKey);
 
   return (
