@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import { apiUrl } from "../api/apiUrl";
 
 const Payment = ({ cart, stripePromise }) => {
   const [clientSecret, setClientSecret] = useState("");
@@ -9,11 +8,14 @@ const Payment = ({ cart, stripePromise }) => {
   // Fetch client secret for the checkout session when the app loads
   useEffect(() => {
     // Assuming you have an endpoint to create a payment intent
-    fetch(`${apiUrl}/create-payment-intent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: cart }),
-    })
+    fetch(
+      "https://cozy-threads-server-984c18c170ec.herokuapp.com/create-payment-intent",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: cart }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
       .catch((error) => console.error("Error:", error));

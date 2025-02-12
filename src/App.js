@@ -1,16 +1,14 @@
-// App.js
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import Main from "./components/Main";
-import { apiUrl } from "./api/apiUrl";
 
 const App = () => {
   const [stripeKey, setStripeKey] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`${apiUrl}/config`, {
+    fetch("https://cozy-threads-server-984c18c170ec.herokuapp.com/config", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     })
