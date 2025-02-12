@@ -1,5 +1,10 @@
-# Getting Started with Create React App
+# Cozy Threads App
+[Cozy Threads App](https://cozy-threads-client-4b19c26c3f7f.herokuapp.com/)
 
+[<img width="1353" alt="Screenshot 2025-02-12 at 9 43 28 AM" src="https://github.com/user-attachments/assets/fd0145a9-756d-453d-b770-a00346969844" />](https://cozy-threads-client-4b19c26c3f7f.herokuapp.com)
+
+
+### Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
